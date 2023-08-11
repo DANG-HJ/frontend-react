@@ -8,9 +8,19 @@
 </head>
 
 <body>
-  <div>
-    <h1>Hello React</h1>
-  </div>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+  <script type="text/javascript">
+    const Title=function(){
+      //<h1>Hello React</h1>
+      return React.createElement('h1',null,'Hello React');
+    }
+    
+    const root=ReactDOM.createRoot(document.getElementById('root'));
+    root.render(React.createElement(Title,null));
+  </script>
 </body>
 
 </html>

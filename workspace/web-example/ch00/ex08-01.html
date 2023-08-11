@@ -7,7 +7,7 @@
 </head>
 <body>
   <div id="root">
-    <h1>Todo List - DOM API :)</h1>
+    <h1>Todo List - Sample :)</h1>
     
     <div>
       <div>
@@ -109,86 +109,101 @@
   </div>
 
   <script>
-
-    const itemList = [
-      { no: 1, todo: '두부', done: true},
-      { no: 2, todo: '계란', done: false},
-      { no: 3, todo: '라면', done: true},
+    const itemList=[
+      {no:1, todo:'두부', done:false},
+      {no:2, todo:'계란', done:true},
+      {no:3, todo:'라면', done:false},
     ];
+    let nextNo = itemList.length +1;
 
-    let nextNo = itemList.length + 1;
-
-    function renderTodoItem(item){
+    function renderTodoItem({no, todo, done=false}){
       // <li>
-      //   <span>1</span>
-      //   <span onclick="toggleDone(event)">두부</span>
-      //   <span onclick="deleteItem(event)">삭제</span>
+      //   <span>3</span>
+      //   <span>라면</span>
+      //   <span>삭제</span>
       // </li>
+
       const liNode = document.createElement('li');
-      liNode.dataset.key = item.no;
+      liNode.setAttribute('data-key',no);
 
       const noSpanNode = document.createElement('span');
-      const itemSpanNode = document.createElement('span');
+      const todoSpanNode = document.createElement('span');
+      if(done){
+        todoSpanNode.style.textDecoration='line-through';
+      }
+      todoSpanNode.setAttribute('onclick','toggleDone(event)');
       const deleteSpanNode = document.createElement('span');
-      
-      const noTextNode = document.createTextNode(item.no);      
-      const itemTextNode = document.createTextNode(item.done ? item.todo + ' (완료)' : item.todo);
+      deleteSpanNode.setAttribute('onclick','deleteItem(event)');
+
+      const noTextNode = document.createTextNode(no);
+      const todoTextNode = document.createTextNode(todo);
       const deleteTextNode = document.createTextNode('삭제');
 
       noSpanNode.appendChild(noTextNode);
-      itemSpanNode.appendChild(itemTextNode);
-      itemSpanNode.setAttribute('onclick', 'toggleDone(event)');
+      todoSpanNode.appendChild(todoTextNode);
       deleteSpanNode.appendChild(deleteTextNode);
-      deleteSpanNode.setAttribute('onclick', 'deleteItem(event)');
 
       liNode.appendChild(noSpanNode);
-      liNode.appendChild(itemSpanNode);
+      liNode.appendChild(todoSpanNode);
       liNode.appendChild(deleteSpanNode);
-
+    
       return liNode;
     }
-
+    
     const ulNode = document.querySelector('#list ul');
-    itemList.forEach(function(item, index){
-      let liNode = renderTodoItem(item);
+    itemList.forEach(item=> {
+      let liNode=renderTodoItem(item);
       ulNode.appendChild(liNode);
     });
-    
+
     function addItem(){
       const inputElement = document.querySelector('#todoinput input');
-      const item = {
-        no: nextNo,
+      const item={
+        no:nextNo,
         todo: inputElement.value,
-        done: false
+        //done: false
       };
+
       itemList.push(item);
-      
+
       let liNode = renderTodoItem(item);
       ulNode.appendChild(liNode);
-      
-      inputElement.value = '';
+
+      inputElement.value='';
       nextNo++;
     }
-    
+
     function deleteItem(event){
       const no = Number(event.target.parentNode.dataset.key);
 
-      const index = itemList.findIndex(todo => todo.no === no);
-      itemList.splice(index, 1);
+      // const index = itemList.findIndex(function(item, index){
+      //   return item.no=== no;
+      // });
 
-      let liNode = event.target.parentNode;
+      //데이터 갱신
+      const index = itemList.findIndex(item => item.no=== no);
+      itemList.splice(index,1);
+
+      //화면 갱신
+      const liNode=event.target.parentNode;
       liNode.remove();
     }
 
     function toggleDone(event){
       const no = Number(event.target.parentNode.dataset.key);
-
-      const index = itemList.findIndex(item => item.no === no);
+      
+      // 데이터 갱신
+      const index = itemList.findIndex(item => item.no=== no);
       const item = itemList[index];
       item.done = !item.done;
 
-      let todoTextNode = event.target.firstChild;
-      todoTextNode.nodeValue = item.done ? item.todo + ' (완료)' : item.todo;
+      // 화면 갱신
+      event.target.style.textDecoration='line-through';
+      if(item){
+        event.target.style.textDecoration='line-through';
+      }else{
+        event.target.style.textDecoration='none';
+      }
     }
   </script>
 </body>
