@@ -1,4 +1,4 @@
-# Node.js 프로그래밍
+# React 프로그래밍
 * GitHub URL: (https://github.com/uzoolove/frontend-react)
 
 ## 개발환경 구축
