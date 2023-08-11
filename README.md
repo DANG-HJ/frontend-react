@@ -22,9 +22,6 @@
 	* <nohyper>https</nohyper>://github.com/uzoolove/frontend-react.git 입력
 	* 복사할 적당한 폴더 선택 후 Select as Repository Destination 선택
 	* Open 선택
-4. 작업 폴더 지정
-	* sample 폴더 이름을 workspace로 변경
-
 
 ## 소스코드 공유(본인의 소스코드를 강사에게 공유하고 싶을때)
 * https://codeshare.io/qPvKkZ 접속 후 문제 있는 소스코드 붙여넣기
